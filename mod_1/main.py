@@ -1,4 +1,6 @@
-from shopping_list import shopping_list_maker
+from mod_1.shopping_list import shopping_list_maker
+
+
 def run_shop():
     x = True
     while x:
