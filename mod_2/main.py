@@ -1,35 +1,51 @@
-
 class Product:
-    pass
-class Orders:
-    pass
+    def __int__(self, name, category, price):
+        self.name = name
+        self.category = category
+        self.price = price
+
+
+class Order:
+    def __int__(self, name, surname, products=None):
+        self.name = name
+        self.surname = surname
+        if products is None:
+            products = []
+        self.products = products
+
+        total_price = 0
+        for product in products:
+            total_price += product.unit_price
+        self.total_price = total_price
+
+
 class Apple:
-    pass
+    def __int__(self, species_name, size, price):
+        self.species_name = species_name
+        self.size = size
+        self.price = price
+
+
 class Potato:
-    pass
-kartofel = Potato()
-kartofel1 = Potato()
-zamowienie = Orders()
-zamowienie1 = Orders()
-zamowienie2 = Orders()
-zamowienie3 = Orders()
-zamowienie4 = Orders()
-jabko = Apple()
-jabko1 = Apple()
-produkt = Product()
-auto = Product()
-kawa = Product()
-woda = Product()
-print(kartofel)
-print(zamowienie)
-print(jabko)
-print(produkt)
-print(type(kartofel), type(kartofel1))
-print(type(jabko), type(jabko1))
-orders_list = [zamowienie, zamowienie1, zamowienie2, zamowienie3, zamowienie4]
-products_dic = {
-    "produkt": produkt,
-    "auto": auto,
-    "kawa": kawa,
-    "woda": woda
-}
+    def __int__(self, species_name, size, price):
+        self.species_name = species_name
+        self.size = size
+        self.price = price
+
+
+if __name__ == "__main__":
+    kosiarka = Product("kosiarka", "maszyna", 1299.99)
+    telefon = Product("samsung", "telefon", 699.99)
+    washing_machine = Product("pralka", "rtv", 3999.99)
+    produkty = [kosiarka, telefon, washing_machine]
+
+    order = Order("Dominik", "Zazula", produkty)
+    order1 = Order("jan", "Kowalski")
+
+    green_apple = Apple("apple", 34, 3.99)
+    old_apple = Apple("old apple", 32, 1.99)
+    red_apple = Apple("red apple", 31, 4.99)
+
+    green_potato = Potato("bad potato", 24, 3.99)
+    old_potato = Potato("old potato", 32, 1.99)
+    sweat_potato = Apple("sweat potato", 31, 4.99)
