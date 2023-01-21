@@ -19,7 +19,7 @@ class Order:
 
     def __str__(self):
         return_valiu = "=" * 20
-        return_valiu += f"\nZamawia pan/pani  {self.name} {self.surname}"
+        return_valiu += f"\nZamawia pan/pania  {self.name} {self.surname}"
         for product in self.order_element:
             return_valiu += f"\n  {str(product)}"
         return_valiu += f"\ncena calego zamowienia wynosi: {self.total_price} \n  "
