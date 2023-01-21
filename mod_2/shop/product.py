@@ -13,12 +13,7 @@ class Product:
     def __eq__(self, other):
         if self.__class__ != other.__class__:
             return NotImplemented
-        elif self.name != other.name:
-            return False
-        elif self.category != other.category:
-            return False
-        elif self.unit_price == other.unit_price:
-            return True
-        else:
-            return False
+            return (self.name == other.name and
+                    self.category_name == other.category_name and
+                    self.unit_price == other.unit_price)
 

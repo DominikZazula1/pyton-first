@@ -13,12 +13,7 @@ class OrderElement:
     def __eq__(self, other):
         if self.__class__ != other.__class__:
             return NotImplemented
-        elif self.product != other.product:
-            return False
-        elif self.quantity == other.quantity:
-            return True
-        else:
-            return False
+        return self.quantity == other.quantity and self.product == other.product
 
     def total_price(self):
         return self.product.unit_price * self.quantity

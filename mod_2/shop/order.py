@@ -32,17 +32,17 @@ class Order:
     def __eq__(self, other):
         if self.__class__ != other.__class__:
             return NotImplemented
-        elif self.name != other.name:
+
+        if len(self.order_element) != len(other.order_element):
             return False
-        elif self.surname != other.surname:
+
+        if self.name != other.name or self.surname != other.surname:
             return False
-        elif len(self) != len(other):
-            return False
-        else:
-            for element in self.order_element:
-                if element not in other.order_element:
-                    return False
-            return True
+
+        for order_element in self.order_element:
+            if order_element not in other.order_element:
+                return False
+        return True
 
 
 def generate_order():
