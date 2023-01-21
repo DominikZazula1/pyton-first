@@ -26,6 +26,9 @@ class Order:
         return_valiu += "=" * 20
         return return_valiu
 
+    def __len__(self):
+        return len(self.order_element)
+
 
 def generate_order():
     number_of_order_element = random.randint(1, 10)

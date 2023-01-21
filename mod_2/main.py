@@ -6,7 +6,7 @@ from shop.order import generate_order
 def run():
     order = generate_order()
     print(order)
-
+    print(len(order))
     print(Apple("green", "M", 12.31))
     print(Potato("green", "M", 2.31))
 
