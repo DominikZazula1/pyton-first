@@ -1,7 +1,7 @@
 import random
 
 from .order_element import OrderElement
-
+from .product import Product
 
 
 class Order:
@@ -17,13 +17,14 @@ class Order:
             total_price += product.total_price()
         self.total_price = round(total_price, 2)
 
-    def print_order(self):
-        print("=" * 20)
-        print("Zamawia pan/pani ", self.name, " ", self.surname)
+    def __str__(self):
+        return_valiu = "=" * 20
+        return_valiu += f"\nZamawia pan/pani  {self.name} {self.surname}"
         for product in self.order_element:
-            product.print_order_element()
-        print("cena calego zamowienia wynosi: ", self.total_price)
-        print("=" * 20)
+            return_valiu += f"\n  {str(product)}"
+        return_valiu += f"\ncena calego zamowienia wynosi: {self.total_price} \n  "
+        return_valiu += "=" * 20
+        return return_valiu
 
 
 def generate_order():
@@ -32,6 +33,6 @@ def generate_order():
     for product_number in range(number_of_order_element):
         name = f"Product-{product_number}"
         category = f"Categoria-{product_number}"
-        order_element.append(OrderElement(name, category, round(random.uniform(1, 200), 2), random.randint(1, 20)))
+        order_element.append(OrderElement(Product(name, category, round(random.uniform(1, 200), 2)), random.randint(1, 20)))
     order = Order("arek", "kowalski", order_element)
     return order

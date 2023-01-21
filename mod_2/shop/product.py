@@ -5,5 +5,7 @@ class Product:
         self.category = category
         self.unit_price = unit_price
 
-    def print_product(self):
-        print("nazwa produktu: ", self.name, " kategoria: ", self.category, "cena: ", self.unit_price)
+    def __str__(self):
+        return f"nazwa produktu: {self.name} " \
+               f"| kategoria:  {self.category} " \
+               f"| cena:  {self.unit_price} "

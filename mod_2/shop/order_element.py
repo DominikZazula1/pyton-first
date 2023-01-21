@@ -3,15 +3,12 @@ from .product import Product
 
 class OrderElement:
 
-    def __init__(self, name: str, category: str, unit_price: float, quantity=1):
-        self.order_element = Product(name, category, unit_price)
+    def __init__(self, product: Product, quantity=1):
+        self.product = product
         self.quantity = quantity
 
-    def print_order_element(self):
-        print("nazwa produktu: ", self.order_element.name,
-              " | kategoria: ", self.order_element.category,
-              " | cena: ", self.order_element.unit_price,
-              " | ilosc: ", self.quantity)
+    def __str__(self):
+        return str(self.product) + f"| ilosc:  {self.quantity}"
 
     def total_price(self):
-        return self.order_element.unit_price * self.quantity
+        return self.product.unit_price * self.quantity
