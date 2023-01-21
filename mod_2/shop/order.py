@@ -29,6 +29,21 @@ class Order:
     def __len__(self):
         return len(self.order_element)
 
+    def __eq__(self, other):
+        if self.__class__ != other.__class__:
+            return NotImplemented
+        elif self.name != other.name:
+            return False
+        elif self.surname != other.surname:
+            return False
+        elif len(self) != len(other):
+            return False
+        else:
+            for element in self.order_element:
+                if element not in other.order_element:
+                    return False
+            return True
+
 
 def generate_order():
     number_of_order_element = random.randint(1, 10)
