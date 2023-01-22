@@ -4,10 +4,6 @@ from shop.order import Order
 from shop.product import Product
 
 
-def total_cost(order: Order):
-    return order.total_price
-
-
 def run():
     orders = [Order.generate_order(5), Order.generate_order(5), Order.generate_order(5), Order.generate_order(5),
               Order.generate_order(5)]
