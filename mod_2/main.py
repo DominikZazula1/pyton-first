@@ -14,7 +14,7 @@ def run():
     for order in orders:
         print(order.total_price)
     print("-" * 10)
-    orders.sort(key=total_cost)
+    orders.sort(key=lambda order: order.total_price)
     for order in orders:
         print(order.total_price)
     orders_element = [OrderElement(Product("a", "Owoce i warzywa", 10), 10),
