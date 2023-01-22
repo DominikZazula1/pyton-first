@@ -1,5 +1,6 @@
 import random
 
+from .discount_policy import default_policy
 from .order_element import OrderElement
 from .product import Product
 
@@ -7,7 +8,7 @@ from .product import Product
 class Order:
     MAX_ELEMENTS = 5
 
-    def __init__(self, name: str, surname: str, order_element=None):
+    def __init__(self, name: str, surname: str, order_element=None, discount_policy=None):
         self.name = name
         self.surname = surname
         if order_element is None:
@@ -15,7 +16,9 @@ class Order:
         if len(order_element) > self.MAX_ELEMENTS:
             order_element = order_element[:self.MAX_ELEMENTS]
         self._order_elements = order_element
-        self.total_price = self._calculate_total_price()
+        if discount_policy is None:
+            discount_policy = default_policy
+        self.total_price = self._calculate_total_price(discount_policy)
 
     def __str__(self):
         return_valiu = "=" * 20
@@ -44,11 +47,11 @@ class Order:
                 return False
         return True
 
-    def _calculate_total_price(self):
+    def _calculate_total_price(self, discount_policy):
         total_price = 0
         for product in self._order_elements:
             total_price += product.total_price()
-        return round(total_price, 2)
+        return round(discount_policy(total_price), 2)
 
     def add_order_element(self, product: Product, quantity: int):
         if len(self._order_elements) < self.MAX_ELEMENTS:
@@ -57,7 +60,7 @@ class Order:
             print("nie ma wiecej miejsca!!")
 
     @classmethod
-    def generate_order(cls, quantity):
+    def generate_order(cls, quantity,):
 
         order_element = []
         for product_number in range(quantity):
@@ -65,5 +68,5 @@ class Order:
             category = f"Categoria-{product_number}"
             order_element.append(
                 OrderElement(Product(name, category, round(random.uniform(1, 200), 2)), random.randint(1, 20)))
-        order = Order("arek", "kowalski", order_element)
+        order = Order("arek", "kowalski", order_element, )
         return order
