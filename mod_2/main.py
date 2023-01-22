@@ -1,28 +1,43 @@
-from shop.discount_policy import loyal_customer_policy, christmas_policy
-from shop.order_element import OrderElement
-from shop.order import Order
-from shop.product import Product
+import random
+
+
+def napis(*args):
+    return "-".join(args)
+
+
+def print_dic(**kwargs):
+    print("\n")
+    for name, value in kwargs.items():
+        print(f"first_name={name}, age={value}")
+    print("\n")
+
+
+def list_generator():
+    lista = []
+    for a in range(5):
+        lista.append(random.randint(1, 40))
+    return lista
 
 
 def run():
-    orders = [Order.generate_order(5), Order.generate_order(5), Order.generate_order(5), Order.generate_order(5),
-              Order.generate_order(5)]
-    for order in orders:
-        print(order.total_price)
-    print("-" * 10)
-    orders.sort(key=lambda order: order.total_price)
-    for order in orders:
-        print(order.total_price)
-    orders_element = [OrderElement(Product("a", "Owoce i warzywa", 10), 10),
-                      OrderElement(Product("b", "Owoce i warzywa", 20), 5),
-                      OrderElement(Product("c", "Owoce i warzywa", 100), 1)]
-    order1 = Order("Dominik", "Zazula", orders_element)
-    order2 = Order("Dominik", "Zazula", orders_element, loyal_customer_policy)
-    order3 = Order("Dominik", "Zazula", orders_element, christmas_policy)
-    print("=" * 10, "\n")
-    print(order1.total_price)
-    print(order2.total_price)
-    print(order3.total_price)
+    print(napis("aaaaa", "bbbbb", "cccccc"))
+    print_dic(dominik=12, marysi=31, Adrian=42, barbara=69)
+    first_list = list_generator()
+    second_list = list_generator()
+    final_list = [*first_list, *second_list]
+    print(final_list)
+    first_dic = {
+        "dominik": 40,
+        "marysi": 4,
+        "lucyna": 53,
+    }
+    second_dic = {
+        "Adrian": 14,
+        "barbara": 41,
+        "emilka": 25,
+    }
+    final_dic = {**first_dic, **second_dic}
+    print_dic(**final_dic)
 
 
 if __name__ == "__main__":

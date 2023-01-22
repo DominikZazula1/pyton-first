@@ -3,7 +3,7 @@ def default_policy(total_price):
 
 
 def loyal_customer_policy(total_price):
-    return total_price - total_price * 0.05
+    return total_price * 0.95
 
 
 def christmas_policy(total_price):

@@ -59,14 +59,3 @@ class Order:
         else:
             print("nie ma wiecej miejsca!!")
 
-    @classmethod
-    def generate_order(cls, quantity,):
-
-        order_element = []
-        for product_number in range(quantity):
-            name = f"Product-{product_number}"
-            category = f"Categoria-{product_number}"
-            order_element.append(
-                OrderElement(Product(name, category, round(random.uniform(1, 200), 2)), random.randint(1, 20)))
-        order = Order("arek", "kowalski", order_element, )
-        return order
