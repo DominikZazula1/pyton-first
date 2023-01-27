@@ -1,4 +1,4 @@
-from random import random
+import random
 
 from .order import Order
 from .order_element import OrderElement
