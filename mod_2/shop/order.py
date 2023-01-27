@@ -1,4 +1,3 @@
-
 from .discount_policy import default_policy
 from .order_element import OrderElement
 from .product import Product
@@ -78,3 +77,20 @@ class Order:
             self._order_elements.append(OrderElement(product, quantity))
         else:
             print("nie ma wiecej miejsca!!")
+
+
+class ExpressOrder(Order):
+    def __init__(self, name: str, surname: str, delivery_date: str, order_element=None, discount_policy=None):
+        super().__init__(name, surname, order_element, discount_policy)
+        self.delivery_date = delivery_date
+        self._total_price += 20
+
+    def __str__(self):
+        return_valiu = "=" * 20
+        return_valiu += f"\nZamawia pan/pania  {self._name} {self._surname}"
+        for product in self._order_elements:
+            return_valiu += f"\n  {str(product)}"
+        return_valiu += f"\ncena calego zamowienia wynosi: {self._total_price} \n  "
+        return_valiu += f"\data dostawy: {self.delivery_date} \n  "
+        return_valiu += "=" * 20
+        return return_valiu

@@ -1,12 +1,16 @@
-
-from shop.data_generator import generate_order_elements
-from shop.product import ExpiringProduct
+from shop.order import ExpressOrder
+from shop import data_generator
 
 
 def run():
-    product = ExpiringProduct("Mleko", "picie", 12.13, 2022, 1)
-    print(product.dose_expire(2023))
-    print(product.dose_expire(2024))
+    order_elements = data_generator.generate_order_elements()
+    express_order = ExpressOrder(
+        delivery_date="10-05-2020",
+        name="M",
+        surname="L",
+        order_element=order_elements
+    )
+    print(express_order)
 
 
 if __name__ == "__main__":
