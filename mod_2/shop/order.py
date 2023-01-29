@@ -1,4 +1,4 @@
-from .discount_policy import default_policy
+from .discount_policy import DiscountPolicy
 from .order_element import OrderElement
 from .product import Product
 
@@ -15,7 +15,7 @@ class Order:
             order_element = order_element[:self.MAX_ELEMENTS]
         self._order_elements = order_element
         if discount_policy is None:
-            self._discount_policy = default_policy
+            self._discount_policy = DiscountPolicy()
         else:
             self._discount_policy = discount_policy
         self._total_price = self._calculate_total_price()
@@ -70,7 +70,7 @@ class Order:
         total_price = 0
         for product in self._order_elements:
             total_price += product.total_price()
-        return round(self._discount_policy(total_price), 2)
+        return round(self._discount_policy.apply_discount(total_price), 2)
 
     def add_order_element(self, product: Product, quantity: int):
         if len(self._order_elements) < self.MAX_ELEMENTS:
