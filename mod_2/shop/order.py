@@ -18,7 +18,7 @@ class Order:
             self._discount_policy = DiscountPolicy()
         else:
             self._discount_policy = discount_policy
-        self._total_price = self._calculate_total_price()
+
 
     @property
     def order_elements(self):
@@ -26,7 +26,10 @@ class Order:
 
     @property
     def total_price(self):
-        return self._calculate_total_price()
+        total_price = 0
+        for product in self._order_elements:
+            total_price += product.total_price()
+        return round(self._discount_policy.apply_discount(total_price), 2)
 
     @order_elements.setter
     def order_elements(self, elements):
@@ -37,14 +40,14 @@ class Order:
             self._order_elements.extend(elements)
         else:
             self._order_elements.extend(elements[:self.MAX_ELEMENTS - elements_count])
-        self._total_price = self._calculate_total_price()
+
 
     def __str__(self):
         return_valiu = "=" * 20
         return_valiu += f"\nZamawia pan/pania  {self._name} {self._surname}"
         for product in self._order_elements:
             return_valiu += f"\n  {str(product)}"
-        return_valiu += f"\ncena calego zamowienia wynosi: {self._total_price} \n  "
+        return_valiu += f"\ncena calego zamowienia wynosi: {self.total_price} \n  "
         return_valiu += "=" * 20
         return return_valiu
 
@@ -80,17 +83,23 @@ class Order:
 
 
 class ExpressOrder(Order):
-    def __init__(self, name: str, surname: str, delivery_date: str, order_element=None, discount_policy=None):
-        super().__init__(name, surname, order_element, discount_policy)
+
+    EXPRESS_DELIVERY_FEE = 20
+
+    def __init__(self, delivery_date: str, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.delivery_date = delivery_date
-        self._total_price += 20
+
+    @property
+    def total_price(self):
+        return super().total_price - ExpressOrder.EXPRESS_DELIVERY_FEE
 
     def __str__(self):
         return_valiu = "=" * 20
         return_valiu += f"\nZamawia pan/pania  {self._name} {self._surname}"
         for product in self._order_elements:
             return_valiu += f"\n  {str(product)}"
-        return_valiu += f"\ncena calego zamowienia wynosi: {self._total_price} \n  "
-        return_valiu += f"\data dostawy: {self.delivery_date} \n  "
+        return_valiu += f"\ncena calego zamowienia wynosi: {self.total_price} \n  "
+        return_valiu += f"data dostawy: {self.delivery_date} \n  "
         return_valiu += "=" * 20
         return return_valiu
