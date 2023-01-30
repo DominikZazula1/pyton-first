@@ -1,16 +1,25 @@
-from mod_2.shop.order import ExpressOrder
-from shop import data_generator
+import math
+import random
 
 
 def run():
-    order_elements = data_generator.generate_order_elements()
-    express_order = ExpressOrder(
-        delivery_date="10-05-2020",
-        name="M",
-        surname="L",
-        order_element=order_elements
-    )
-    print(express_order)
+    float_numbers = []
+    for _ in range(6):
+        float_numbers.append(random.uniform(-20, 20))
+    print(float_numbers)
+
+    int_numbers = []
+    for _ in range(3):
+        int_numbers.append(random.randint(1, 10))
+    print(int_numbers)
+
+    print(round(float_numbers[0]))
+    print(math.ceil(float_numbers[1]))
+    print(math.floor(float_numbers[2]))
+
+    print(float_numbers[3] ** int_numbers[0])
+    print(pow(float_numbers[4], int_numbers[1]))
+    print(math.pow(float_numbers[5], int_numbers[2]))
 
 
 if __name__ == "__main__":
