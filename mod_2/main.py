@@ -1,22 +1,37 @@
-import random
+
+
+from shop.delivery import products_delivery
 
 
 def run():
-    # Zadanie nr 1 Używając list comprehensions wygeneruj listy zawierające liczby od 1 do 30 podzielne kolejno przez
-    # 3 oraz przez 5. To znaczy, że na pierwszej liście powinny znaleźć się liczby od 1 do 30 podzielne przez 3,
-    # a na drugiej liście liczby od 1 do 30 podzielne przez 5. Następnie, połącz obie listy w jedną i wypisz wynik.
-    # Zadanie nr 2 Wczytaj od użytkownika listę ulubionych sportów, a następnie stosując slicing wypisz co drugi,
-    # pomijając pierwszy sport z listy.
-    numbers_3 = [number for number in range(31) if number % 3 == 0]
-    numbers_5 = [number for number in range(31) if number % 5 == 0]
-    numbers_3 += numbers_5
-    favorite_sports = []
-    sport = "a"
-    while sport != "":
-        sport = input("podaj ulubiony sport:")
-        favorite_sports.append(sport)
-    print(numbers_3)
-    print(favorite_sports[1::2])
+    # Rozbuduj rozwiązanie zadania drugiego z poprzedniej lekcji dodając funkcję, która będzie sprawdzać,
+    # których z zamówionych produktów jeszcze brakuje, po otrzymaniu kolejnej dostawy.
+    # W tym celu najpierw zaimplementuj funkcję, products_delivery, która reprezentuje otrzymanie dostawy produktów.
+    # Funkcja ta powinna zwracać listę produktów przywiezionych w ramach dostawy - w ramach symulacji niech wylosuje z
+    # powtórzeniami pięć nazw produktów (z listy dziesięciu dostępnych nazw produktów wylosuj pięć elementów ale tak,
+    # żeby mogły się one powtórzyć na liście wynikowej).
+    # W skrypcie main najpierw “zamów dostawę”, a potem sprawdź, które produkty są jeszcze potrzebne.
+    # Aby porównać otrzymane produkty z listą jeszcze potrzebnych wykorzystaj set. Następnie, tak długo realizuj
+    # kolejne zamówienia aż ostatecznie wszystkie z potrzebnych produktów zostaną dostarczone.
+
+    needed_products = [
+        "chleb",
+        "ciastka",
+        "jabłka",
+        "dżem",
+        "pomarańcze",
+        "marchew",
+        "bułki",
+        "ziemniaki",
+        "ser",
+        "mleko"
+    ]
+    delivery =[]
+    while not set(needed_products) == set(delivery):
+        delivery += products_delivery()
+        missing_product = set(needed_products).difference(set(delivery))
+        print("brakujace produkty: \n", missing_product)
+        print("deliwery: \n", set(delivery), "\n")
 
 
 if __name__ == "__main__":

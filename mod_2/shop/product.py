@@ -1,27 +1,30 @@
 class Product:
 
-    def __init__(self, name: str, category: str, unit_price: float):
+    def __init__(self, identifier: int, name: str, category: str, unit_price: float):
+        self.identifier = identifier
         self.name = name
         self.category = category
         self.unit_price = unit_price
 
     def __str__(self):
-        return f"nazwa produktu: {self.name} " \
+        return f"identyfikator: {self.identifier} " \
+                f"nazwa produktu: {self.name} " \
                f"| kategoria:  {self.category} " \
                f"| cena:  {self.unit_price} "
 
     def __eq__(self, other):
         if self.__class__ != other.__class__:
             return NotImplemented
-            return (self.name == other.name and
+            return (self.identifier == order.identifier and
+                    self.name == other.name and
                     self.category_name == other.category_name and
                     self.unit_price == other.unit_price)
 
 
 class ExpiringProduct(Product):
 
-    def __init__(self, name: str, category: str, unit_price: float, year_of_production, years_of_validity):
-        super().__init__(name, category, unit_price)
+    def __init__(self, identifier: int, name: str, category: str, unit_price: float, year_of_production, years_of_validity):
+        super().__init__(identifier, name, category, unit_price)
         self.year_of_production = year_of_production
         self.years_of_validity = years_of_validity
 
