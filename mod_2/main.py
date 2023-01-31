@@ -1,37 +1,33 @@
+import random
 
 
-from shop.delivery import products_delivery
+def add_random_number_to_set(numbers):
+    number = random.randint(0, 10)
+    numbers.add(number)
+    return numbers
+
+
+def add_random_number_to_frozenset(numbers):
+    number = random.randint(0, 10)
+    return numbers.union({number})
 
 
 def run():
-    # Rozbuduj rozwiązanie zadania drugiego z poprzedniej lekcji dodając funkcję, która będzie sprawdzać,
-    # których z zamówionych produktów jeszcze brakuje, po otrzymaniu kolejnej dostawy.
-    # W tym celu najpierw zaimplementuj funkcję, products_delivery, która reprezentuje otrzymanie dostawy produktów.
-    # Funkcja ta powinna zwracać listę produktów przywiezionych w ramach dostawy - w ramach symulacji niech wylosuje z
-    # powtórzeniami pięć nazw produktów (z listy dziesięciu dostępnych nazw produktów wylosuj pięć elementów ale tak,
-    # żeby mogły się one powtórzyć na liście wynikowej).
-    # W skrypcie main najpierw “zamów dostawę”, a potem sprawdź, które produkty są jeszcze potrzebne.
-    # Aby porównać otrzymane produkty z listą jeszcze potrzebnych wykorzystaj set. Następnie, tak długo realizuj
-    # kolejne zamówienia aż ostatecznie wszystkie z potrzebnych produktów zostaną dostarczone.
+    # Stwórz funkcję, która przyjmuje jako argument zbiór liczb, losuje liczbę od 0 do 10 i zwraca otrzymany
+    # wcześniej zbiór powiększony o wylosowaną liczbę. Wywołuj funkcję tak długo aż w wynikowym zbiorze znajdą się
+    # wszystkie liczby od 0 do 10. Za każdym razem jako argument przekaż do niej zwrócony przez wcześniejsze
+    # wywołanie zbiór. Zaimplementuj dwa warianty tej funkcji - działający z argumentem typu set oraz takim typu
+    # frozenset (w tym przypadku niezbędne będzie skorzystanie z metody union). Zastanów się, czy da się jedną
+    # implementacją obsłużyć obydwa przypadki? A co w sytuacji, gdybyś chciała/chciał zapamiętać wszystkie
+    # “pośrednie” zbiory, żeby na końcu wypisać jak wyglądały kolejne próby?
+    # numbers = set()
+    numbers = frozenset()
+    length = 0
+    while len(numbers) < 11:
+        # numbers = add_random_number_to_set(numbers)
+        numbers = add_random_number_to_frozenset(numbers)
+    print(numbers)
 
-    needed_products = [
-        "chleb",
-        "ciastka",
-        "jabłka",
-        "dżem",
-        "pomarańcze",
-        "marchew",
-        "bułki",
-        "ziemniaki",
-        "ser",
-        "mleko"
-    ]
-    delivery =[]
-    while not set(needed_products) == set(delivery):
-        delivery += products_delivery()
-        missing_product = set(needed_products).difference(set(delivery))
-        print("brakujace produkty: \n", missing_product)
-        print("deliwery: \n", set(delivery), "\n")
 
 
 if __name__ == "__main__":
