@@ -1,34 +1,36 @@
-import random
+# Napisz test sprawdzający poprawność wykonanej w poprzednim module metody magicznej __eq__ w klasie Product - czyli 
+# porównywania produktów.
+#
+# Dla przypomnienia, dwa produkty są sobie równe, gdy mają taką samą nazwę, taką samą kategorię i taką samą cenę 
+# jednostkową.
+#
+# Wykorzystaj tuple do przygotowania różnych zestawów parametrów danych do algorytmu testującego.
+from mod_2.shop.product import Product
 
 
-def add_random_number_to_set(numbers):
-    number = random.randint(0, 10)
-    numbers.add(number)
-    return numbers
+def run_test_eq():
+    parameters = [
+        ("A", "B", 10, "A", "B", 10, True),
+        ("A", "B", 10, "C", "B", 10, False),
+        ("A", "B", 10, "A", "C", 10, False),
+        ("A", "B", 10, "A", "B", 11, False),
+        ("A", "B", 10, "C", "D", 10, False),
+        ("A", "B", 10, "C", "B", 11, False),
+        ("A", "B", 10, "A", "C", 11, False),
+        ("A", "B", 10, "D", "C", 11, False),
 
+    ]
 
-def add_random_number_to_frozenset(numbers):
-    number = random.randint(0, 10)
-    return numbers.union({number})
+    for params in parameters:
+        name, category, price, other_name, other_category, other_price, equality = params
+        result = Product(name, category, price) == Product(other_name, other_category, other_price)
 
-
-def run():
-    # Stwórz funkcję, która przyjmuje jako argument zbiór liczb, losuje liczbę od 0 do 10 i zwraca otrzymany
-    # wcześniej zbiór powiększony o wylosowaną liczbę. Wywołuj funkcję tak długo aż w wynikowym zbiorze znajdą się
-    # wszystkie liczby od 0 do 10. Za każdym razem jako argument przekaż do niej zwrócony przez wcześniejsze
-    # wywołanie zbiór. Zaimplementuj dwa warianty tej funkcji - działający z argumentem typu set oraz takim typu
-    # frozenset (w tym przypadku niezbędne będzie skorzystanie z metody union). Zastanów się, czy da się jedną
-    # implementacją obsłużyć obydwa przypadki? A co w sytuacji, gdybyś chciała/chciał zapamiętać wszystkie
-    # “pośrednie” zbiory, żeby na końcu wypisać jak wyglądały kolejne próby?
-    # numbers = set()
-    numbers = frozenset()
-    length = 0
-    while len(numbers) < 11:
-        # numbers = add_random_number_to_set(numbers)
-        numbers = add_random_number_to_frozenset(numbers)
-    print(numbers)
-
+        if result == equality:
+            print("OK")
+        else:
+            print(
+                f"Błąd! Dla parametrów: {params} wynik promocji to {result} zamiast {equality}")
 
 
 if __name__ == "__main__":
-    run()
+    run_test_eq()
