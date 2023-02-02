@@ -6,14 +6,14 @@ from .product import Product
 class Order:
     MAX_ELEMENTS = 5
 
-    def __init__(self, name: str, surname: str, order_element=None, discount_policy=None):
+    def __init__(self, name: str, surname: str, order_elements=None, discount_policy=None):
         self._name = name
         self._surname = surname
-        if order_element is None:
-            order_element = []
-        if len(order_element) > self.MAX_ELEMENTS:
-            order_element = order_element[:self.MAX_ELEMENTS]
-        self._order_elements = order_element
+        if order_elements is None:
+            order_elements = []
+        if len(order_elements) > self.MAX_ELEMENTS:
+            order_elements = order_elements[:self.MAX_ELEMENTS]
+        self._order_elements = order_elements
         if discount_policy is None:
             self._discount_policy = DiscountPolicy()
         else:
