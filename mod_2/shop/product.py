@@ -1,30 +1,30 @@
-class Product:
+from dataclasses import dataclass
+from enum import Enum
 
-    def __init__(self, name: str, category: str, unit_price):
-        self.name = name
-        self.category = category
-        self.unit_price = unit_price
+
+class ProductCategory(Enum):
+    FOOD = "Jedzonko"
+    OTHER = "Inne"
+    TOOLS = "Narzędzia"
+
+
+@dataclass
+class Product:
+    name: str
+    category: ProductCategory
+    unit_price: float
+    identifier: int
 
     def __str__(self):
         return f"nazwa produktu: {self.name} " \
-               f"| kategoria:  {self.category} " \
+               f"| kategoria:  {self.category.value} " \
                f"| cena:  {self.unit_price} "
 
-    def __eq__(self, other):
-        if self.__class__ != other.__class__:
-            return NotImplemented
-        return (self.name == other.name and
-                self.category == other.category and
-                self.unit_price == other.unit_price)
 
-
+@dataclass
 class ExpiringProduct(Product):
-
-    def __init__(self, name: str, category: str, unit_price: float, year_of_production,
-                 years_of_validity):
-        super().__init__(name, category, unit_price)
-        self.year_of_production = year_of_production
-        self.years_of_validity = years_of_validity
+    year_of_production: int
+    years_of_validity: int
 
     def dose_expire(self, year):
         return year > self.year_of_production + self.years_of_validity

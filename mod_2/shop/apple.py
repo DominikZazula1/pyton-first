@@ -1,11 +1,11 @@
-class Apple:
-    def __init__(self, species_name: str, size: str, price: float):
-        self.species_name = species_name
-        self.size = size
-        self.price = price
+from dataclasses import dataclass
 
-    def __repr__(self):
-        return f"<Apple species_name='{self.species_name}', size='{self.size}', price={self.price}>"
+
+@dataclass
+class Apple:
+    species_name: str
+    size: str
+    price: float
 
     def total_price(self, weight: float):
         return self.price * weight

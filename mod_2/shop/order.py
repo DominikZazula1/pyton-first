@@ -19,7 +19,6 @@ class Order:
         else:
             self._discount_policy = discount_policy
 
-
     @property
     def order_elements(self):
         return self._order_elements
@@ -40,7 +39,6 @@ class Order:
             self._order_elements.extend(elements)
         else:
             self._order_elements.extend(elements[:self.MAX_ELEMENTS - elements_count])
-
 
     def __str__(self):
         return_valiu = "=" * 20
@@ -83,7 +81,6 @@ class Order:
 
 
 class ExpressOrder(Order):
-
     EXPRESS_DELIVERY_FEE = 20
 
     def __init__(self, delivery_date: str, *args, **kwargs):
