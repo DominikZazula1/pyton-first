@@ -8,7 +8,6 @@ class TaxRate:
 
 
 class TaxCalculator:
-
     @staticmethod
     def calculate_taxes(element: OrderElement):
         if element.product.category == "Owoce i warzywa":

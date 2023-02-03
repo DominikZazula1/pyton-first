@@ -9,11 +9,11 @@ class Order:
     def __init__(self, name: str, surname: str, order_elements=None, discount_policy=None):
         self._name = name
         self._surname = surname
+
         if order_elements is None:
             order_elements = []
-        if len(order_elements) > self.MAX_ELEMENTS:
-            order_elements = order_elements[:self.MAX_ELEMENTS]
-        self._order_elements = order_elements
+        self.order_elements = order_elements
+
         if discount_policy is None:
             self._discount_policy = DiscountPolicy()
         else:
@@ -31,14 +31,10 @@ class Order:
         return round(self._discount_policy.apply_discount(total_price), 2)
 
     @order_elements.setter
-    def order_elements(self, elements):
-        elements_count = len(self._order_elements) + len(elements)
-        if self._order_elements.__class__ != elements.__class__:
-            print(NotImplemented)
-        elif elements_count <= self.MAX_ELEMENTS:
-            self._order_elements.extend(elements)
-        else:
-            self._order_elements.extend(elements[:self.MAX_ELEMENTS - elements_count])
+    def order_elements(self, value):
+        if len(value) > Order.MAX_ELEMENTS:
+            raise Exception(f"Zamówienie ma limit - {Order.MAX_ELEMENTS} pozycji")
+        self._order_elements = value
 
     def __str__(self):
         return_valiu = "=" * 20
@@ -77,7 +73,7 @@ class Order:
         if len(self._order_elements) < self.MAX_ELEMENTS:
             self._order_elements.append(OrderElement(product, quantity))
         else:
-            print("nie ma wiecej miejsca!!")
+            raise ValueError("W zamowieniu nie ma wiecej miejsca, za duzo elementow!")
 
 
 class ExpressOrder(Order):
