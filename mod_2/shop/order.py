@@ -1,4 +1,5 @@
 from .discount_policy import DiscountPolicy
+from .errors import OrderLimitError
 from .order_element import OrderElement
 from .product import Product
 
@@ -33,7 +34,7 @@ class Order:
     @order_elements.setter
     def order_elements(self, value):
         if len(value) > Order.MAX_ELEMENTS:
-            raise Exception(f"Zamówienie ma limit - {Order.MAX_ELEMENTS} pozycji")
+            raise OrderLimitError(Order.MAX_ELEMENTS)
         self._order_elements = value
 
     def __str__(self):
@@ -73,7 +74,7 @@ class Order:
         if len(self._order_elements) < self.MAX_ELEMENTS:
             self._order_elements.append(OrderElement(product, quantity))
         else:
-            raise ValueError("W zamowieniu nie ma wiecej miejsca, za duzo elementow!")
+            raise OrderLimitError(Order.MAX_ELEMENTS)
 
 
 class ExpressOrder(Order):
