@@ -1,0 +1,21 @@
+--------------------
+Zamówienie z³o¿one przez: Dominik Zazula
+O ³¹cznej wartoœci: 162 PLN
+Zamówione produkty:
+	Nazwa: M³otek | Kategoria: Narzêdzia | Cena: 51 PLN/szt x 2
+	Nazwa: Rower | Kategoria: Inne | Cena: 60 PLN/szt x 1
+
+----------------------------------------
+Zamówienie z³o¿one przez: Dominik Zazula
+O ³¹cznej wartoœci: 266 PLN
+Zamówione produkty:
+	Nazwa: M³otek | Kategoria: Narzêdzia | Cena: 33 PLN/szt x 2
+	Nazwa: Chleb | Kategoria: Jedzonko | Cena: 40 PLN/szt x 5
+
+----------------------------------------
+Zamówienie z³o¿one przez: D Z
+O ³¹cznej wartoœci: 27 PLN
+Zamówione produkty:
+	Nazwa: Rower | Kategoria: Inne | Cena: 27 PLN/szt x 1
+
+--------------------

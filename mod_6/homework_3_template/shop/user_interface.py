@@ -1,14 +1,43 @@
+
+from enum import Enum
+
 from .errors import TemporaryOutOfStock, ProductNotAvailable, NotValidInput
 from .order import Order
+from .persistence import save_to_file, load_file
 from .store import Store
+
+
+class Action(Enum):
+    NEW_ORDER = "1"
+    HISTORY = "2"
 
 
 def handle_customer():
     say_hello()
-    order = init_order()
-    while want_more_products():
-        add_product_to_order(order, Store.AVAILABLE_PRODUCTS)
-    print_order_summary(order)
+    selected_action = select_action()
+    if selected_action is Action.NEW_ORDER:
+        order = init_order()
+        while want_more_products():
+            add_product_to_order(order, Store.AVAILABLE_PRODUCTS)
+        save_to_file(order)
+        print_order_summary(order)
+    else:
+        show_history()
+
+
+def select_action():
+    selected_action = input("Chcesz złożyć nowe zamówienie (1) czy zobaczyć historię swoich zamówień (2)? ")
+    try:
+        return Action(selected_action)
+    except ValueError:
+        print("Możliwe są tylko dwie opcje - domyślnie wybieramy nowe zamówienie ;)")
+        return Action.NEW_ORDER
+
+
+def show_history():
+    orders = load_file()
+    print("Lista zamówień:")
+    print(orders)
 
 
 def say_hello():
@@ -80,3 +109,8 @@ def print_order_summary(order):
     print("Twoje zamówienie to:")
     print(order)
     print("Dziękujemy i zapraszamy ponownie!")
+
+
+
+
+
