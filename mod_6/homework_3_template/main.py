@@ -1,12 +1,20 @@
-from shop.persistence import load_store, save_store
-from shop.store import Store
-from shop import user_interface
+import requests as requests
 
 
 def run_homework():
-    Store.AVAILABLE_PRODUCTS = load_store()
-    user_interface.handle_customer()
-    save_store()
+    try:
+        response = requests.get("https://infoshareacademy.com")
+    except requests.RequestException as error:
+        print(f"Blad przy polaczeniu: {error}")
+        return
+
+    try:
+        response.raise_for_status()
+    except requests.HTTPError as error:
+        print(f"zadanie zakończone niepowodzeniem {error}")
+        return
+
+    print(response.text.encode("utf-8"))
 
 
 if __name__ == '__main__':
