@@ -42,4 +42,22 @@ O ³¹cznej wartoœci: 35.0 PLN
 Zamówione produkty:
 	Nazwa: MÅ‚otek | Kategoria: Narzêdzia | Cena: 35.0 PLN/szt x 1
 
+----------------------------------------
+Zamówienie z³o¿one przez: Dominik Zazula
+O ³¹cznej wartoœci: 35.0 PLN
+Zamówione produkty:
+	Nazwa: MÅ‚otek | Kategoria: Narzêdzia | Cena: 35.0 PLN/szt x 1
+
+----------------------------------------
+Zamówienie z³o¿one przez: d d
+O ³¹cznej wartoœci: 35.0 PLN
+Zamówione produkty:
+	Nazwa: MÅ‚otek | Kategoria: Narzêdzia | Cena: 35.0 PLN/szt x 1
+
+----------------------------------------
+Zamówienie z³o¿one przez: D Z
+O ³¹cznej wartoœci: 35.0 PLN
+Zamówione produkty:
+	Nazwa: MÅ‚otek | Kategoria: Narzêdzia | Cena: 35.0 PLN/szt x 1
+
 --------------------

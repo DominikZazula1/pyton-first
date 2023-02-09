@@ -1,6 +1,11 @@
 import csv
+import dataclasses
+import json
 import os
 
+from mod_2.shop.product import Product
+from .order import Order
+from .order_element import OrderElement
 from .product import ProductCategory
 from .store import AvailableProduct, Store
 
@@ -54,3 +59,61 @@ def load_file():
     except IOError:
         print("Nie mozna odczytac pliku!!")
 
+
+def save_order(order, file_name="orders.json"):
+    new_order_data = {
+        "client_first_name": order.client_first_name,
+        "client_last_name": order.client_last_name,
+        "order_elements": [
+            {
+                "product": {
+                    "name": order_element.product.name,
+                    "category": order_element.product.category.name,
+                    "unit_price": order_element.product.unit_price,
+                    "identifier": order_element.product.identifier,
+                },
+                "quantity": order_element.quantity
+            } for order_element in order.order_elements
+        ]
+    }
+    try:
+        with open(file_name, "r") as orders_file:
+            orders_by_clients_data = json.load(orders_file).get("orders", {})
+    except FileNotFoundError:
+        orders_by_clients_data = {}
+
+    client_id = f"{order.client_first_name}-{order.client_last_name}"
+    if client_id not in orders_by_clients_data:
+        orders_by_clients_data[client_id] = []
+    orders_by_clients_data[client_id].append(new_order_data)
+
+    with open(file_name, "w") as orders_file:
+        json.dump({"orders": orders_by_clients_data}, orders_file, indent=4)
+
+
+def load_orders(client_first_name, client_last_name, file_name="orders.json"):
+    try:
+        with open(file_name, "r") as orders_file:
+            orders_by_clients_data = json.load(orders_file).get("orders", {})
+    except FileNotFoundError:
+        orders_by_clients_data = {}
+
+    client_id = f"{client_first_name}-{client_last_name}"
+    if client_id not in orders_by_clients_data:
+        return []
+    orders = orders_by_clients_data[client_id]
+    return [
+        Order(
+            client_first_name=order["client_first_name"],
+            client_last_name=order["client_last_name"],
+            order_elements=[OrderElement(
+                quantity=order_element["quantity"],
+                product=Product(
+                    name=order_element["product"]["name"],
+                    category=ProductCategory[order_element["product"]["category"]],
+                    unit_price=order_element["product"]["unit_price"],
+                    identifier=order_element["product"]["identifier"],
+                )
+            ) for order_element in order["order_elements"]],
+        ) for order in orders
+    ]

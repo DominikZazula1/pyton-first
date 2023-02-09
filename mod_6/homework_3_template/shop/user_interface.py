@@ -3,7 +3,7 @@ from enum import Enum
 
 from .errors import TemporaryOutOfStock, ProductNotAvailable, NotValidInput
 from .order import Order
-from .persistence import save_to_file, load_file
+from .persistence import save_to_file, load_file, save_order, load_orders
 from .store import Store
 
 
@@ -19,7 +19,8 @@ def handle_customer():
         order = init_order()
         while want_more_products():
             add_product_to_order(order, Store.AVAILABLE_PRODUCTS)
-        save_to_file(order)
+        # save_to_file(order)
+        save_order(order)
         print_order_summary(order)
     else:
         show_history()
@@ -35,9 +36,12 @@ def select_action():
 
 
 def show_history():
-    orders = load_file()
+    name = input("Jak masz na imie? ")
+    surname = input("Jak masz na nazwisko? ")
+    orders = load_orders(name, surname)
     print("Lista zamówień:")
-    print(orders)
+    for order in orders:
+        print(order)
 
 
 def say_hello():
