@@ -1,5 +1,14 @@
 from dataclasses import dataclass
 import requests as requests
+from bs4 import BeautifulSoup
+
+
+def is_title_containing_tag(tag):
+    return tag.name == "h3" and tag.has_attr("class") and "title" in tag["class"] and "text--inter" in tag["class"]
+
+
+def is_type_containing_tag(tag):
+    return tag.name == "span" and tag.has_attr("class") and "top-label" in tag["class"]
 
 
 @dataclass
@@ -12,39 +21,21 @@ class InfoShareAcademyParser:
     PAGE_URL = "https://infoshareacademy.com"
 
     def __init__(self):
-        self.page_html = None
+        self.parsed_page = None
         self.last_post_index = 0
         self.found_post_previews = []
 
     def load_page_html(self):
         response = requests.get(self.PAGE_URL)
         response.raise_for_status()
-        self.page_html = response.text
+        self.parsed_page = BeautifulSoup(response.text, features="html.parser")
 
     def parse_all_previews(self):
-        while True:
-            try:
-                self.search_for_next_post_preview()
-            except ValueError:
-                return
-
-    def search_for_next_post_preview(self):
-        course_type, course_type_index = self._find_publish_date()
-        title, title_index = self._find_title(course_type_index)
-        self.last_post_index = title_index
-        self.found_post_previews.append(PostPreview(course_type, title))
-
-    def _find_publish_date(self):
-        span_marker_begin = self.page_html.index('<span class="top-label">', self.last_post_index) \
-                            + len('<span class="top-label">')
-        span_marker_end = self.page_html.index("</span>", span_marker_begin)
-        return self.page_html[span_marker_begin:span_marker_end], span_marker_end + len('</span>')
-
-    def _find_title(self, publish_date_index):
-        title_open = self.page_html.index('<h3 class="title text--inter">', publish_date_index) \
-                     + len('<h3 class="title text--inter">')
-        title_close = self.page_html.index("</h3>", title_open)
-        return self.page_html[title_open:title_close], title_close + len('</h3>')
+        type_tags = self.parsed_page.find_all(is_type_containing_tag)
+        title_tags = self.parsed_page.find_all(is_title_containing_tag)
+        for type_tag, title_tag in zip(type_tags, title_tags):
+            post_preview = PostPreview(type_tag.string, title_tag.string)
+            self.found_post_previews.append(post_preview)
 
 
 def run_homework():
